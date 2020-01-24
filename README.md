@@ -1,3 +1,3 @@
 # Design-Login-Form
-Using NetBeans and Java Swing to create Login Form Fist Stage
+Using NetBeans, Java Swing and MySQL to create design Registration Form for Students
 
