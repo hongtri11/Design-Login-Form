@@ -1,5 +1,5 @@
-# Design-Login-and-Registration-Form
-Using NetBeans, Java Swing and MySQL to create design Registration Form for Students
+# LogMeIn!No,register!
+Using NetBeans, Java Swing and MySQL to create design Login and Registration Form for Users
 
 This project aims to create a login and registration form connecting with MySQL in the localhost computer for database
 
