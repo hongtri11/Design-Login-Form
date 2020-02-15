@@ -6,15 +6,19 @@
 package registration_form_design;
 
 import java.awt.Color;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author Tri Nguyen
@@ -24,6 +28,9 @@ public class Register_Form extends javax.swing.JFrame {
     /**
      * Creates new form Register_Form
      */
+    
+    // Create the variable to set the image path
+    String imagePath = null;
     public Register_Form() {
         initComponents();
         // Center the form;
@@ -48,9 +55,17 @@ public class Register_Form extends javax.swing.JFrame {
         jTextFieldUsername.setBorder(fieldBorder);
         jTextFieldYourName.setBorder(fieldBorder);
         jTextFieldEmail.setBorder(fieldBorder);
+        jTextFieldPhone.setBorder(fieldBorder);
+
   
         jPasswordFieldRegister.setBorder(fieldBorder);
         jPasswordFieldRegister2.setBorder(fieldBorder);
+        
+        // Create a Button Group for the Male and Female jradiobutton
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(jRadioButtonMale);
+        buttonGroup.add(jRadioButtonFemale);
+
 
     }
 
@@ -80,6 +95,10 @@ public class Register_Form extends javax.swing.JFrame {
         jRadioButtonFemale = new javax.swing.JRadioButton();
         jPasswordFieldRegister = new javax.swing.JPasswordField();
         jPasswordFieldRegister2 = new javax.swing.JPasswordField();
+        jLabelPhone = new javax.swing.JLabel();
+        jTextFieldPhone = new javax.swing.JTextField();
+        jButtonSelectImage = new javax.swing.JButton();
+        jLabelImagePath = new javax.swing.JLabel();
         jLabelMinimize = new javax.swing.JLabel();
         jPanelTitle = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -115,6 +134,8 @@ public class Register_Form extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
         jLabel1.setText("Your name:");
 
+        jTextFieldYourName.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
         jLabel2.setText("Username:");
 
@@ -140,34 +161,62 @@ public class Register_Form extends javax.swing.JFrame {
 
         jPasswordFieldRegister2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabelPhone.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
+        jLabelPhone.setText("Phone number:");
+
+        jTextFieldPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldPhoneKeyTyped(evt);
+            }
+        });
+
+        jButtonSelectImage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonSelectImage.setText("Upload Profile Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
+
+        jLabelImagePath.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelImagePath.setText("Image path");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonFemale)
-                    .addComponent(jRadioButtonMale)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPhone)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextFieldPhone, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                         .addComponent(jPasswordFieldRegister2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPasswordFieldRegister, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTextFieldUsername, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldYourName, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(51, 51, 51))
+                        .addComponent(jTextFieldYourName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jRadioButtonMale))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelImagePath)
+                                .addComponent(jButtonSelectImage, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldYourName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,13 +236,21 @@ public class Register_Form extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonMale)
+                .addComponent(jTextFieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonMale)
+                    .addComponent(jLabelImagePath))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButtonFemale)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -273,8 +330,8 @@ public class Register_Form extends javax.swing.JFrame {
                         .addComponent(jLabelMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -364,6 +421,61 @@ public class Register_Form extends javax.swing.JFrame {
         jLabelClose.setForeground(Color.black);
     }//GEN-LAST:event_jLabelCloseMouseExited
 
+    private void jTextFieldPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPhoneKeyTyped
+        // Only allow the user to enter number 
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldPhoneKeyTyped
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        // Select an image, set the image path into the jLabelImagePath
+        String path = null;
+        JFileChooser chooser = new JFileChooser();
+        
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        
+        // File extension
+        FileNameExtensionFilter extension = new FileNameExtensionFilter("*images","png","jpg","jpeg");
+        chooser.addChoosableFileFilter(extension);
+        
+        int filestate = chooser.showSaveDialog(null);
+        
+        // Check if the user select the image
+        
+        if(filestate == JFileChooser.APPROVE_OPTION){
+            File selectedImage = chooser.getSelectedFile();
+            path = selectedImage.getAbsolutePath();
+            jLabelImagePath.setText(path);
+        }
+        
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
+    // Create a function that returns a boolean to check empty fields
+    
+    public boolean verifyFields(){
+        String fullName = jTextFieldYourName.getText();
+        String userName = jTextFieldUsername.getText();
+        String email = jTextFieldEmail.getText();
+        String phone = jTextFieldPhone.getText();
+        String pass1 = String.valueOf(jPasswordFieldRegister.getPassword());
+        String pass2 = String.valueOf(jPasswordFieldRegister2.getPassword());
+        
+        // Check empty fields 
+        if(fullName.trim().equals("") || userName.trim().equals("") || email.trim().equals("") ||
+                phone.trim().equals("") || pass1.trim().equals("") || pass2.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Please check again. One or more required fields are empty","Empty Fields",2);
+            return false;
+        } else if(pass1.equals(pass2)){
+            JOptionPane.showMessageDialog(null, "Password does not match", "Confirmed password", 2);
+            return false;
+        } else {
+            return true;
+        }
+        
+        // 
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -401,6 +513,7 @@ public class Register_Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRegister;
+    private javax.swing.JButton jButtonSelectImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -409,7 +522,9 @@ public class Register_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelClose;
+    private javax.swing.JLabel jLabelImagePath;
     private javax.swing.JLabel jLabelMinimize;
+    private javax.swing.JLabel jLabelPhone;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -419,6 +534,7 @@ public class Register_Form extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonFemale;
     private javax.swing.JRadioButton jRadioButtonMale;
     private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldPhone;
     private javax.swing.JTextField jTextFieldUsername;
     private javax.swing.JTextField jTextFieldYourName;
     // End of variables declaration//GEN-END:variables
